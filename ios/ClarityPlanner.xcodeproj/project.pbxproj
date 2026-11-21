@@ -1,0 +1,433 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		182996FA40F374D17A84BB93 /* PayoffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8CD73A35E5E16145689849 /* PayoffView.swift */; };
+		39B919538736421180A708C3 /* ToolbarSheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7BC7C9528CF17A0E87380 /* ToolbarSheets.swift */; };
+		6B9328000DA968F7EAE6DEC8 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887343276553FB04BD5448BE /* WeekView.swift */; };
+		7A7A4CC7693A08E2C133EC85 /* TimerViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DC8944DF998E019059912B /* TimerViews.swift */; };
+		7FE2F1334C7EEF88171C8BB7 /* ClarityPlannerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E186D36096E7D2DA40C1A7D /* ClarityPlannerApp.swift */; };
+		8A00887F69757FF969E6771B /* Planner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737A9BC65D72A91E746DA66 /* Planner.swift */; };
+		AEEF3DB57C518E8015FAC853 /* PlannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5730F9DBDE4BCA81EADE89CE /* PlannerTests.swift */; };
+		D6A19F6E3AED82FE9F5B3F4C /* ThirtyDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80685CD95B2DD4C83469C4 /* ThirtyDaysView.swift */; };
+		F0D4DCCC4AAC26D06EA46EE1 /* GoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFFBBB98482AA9ACBE9A47B /* GoalsView.swift */; };
+		F1A280D154BDA3FD89571160 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDBEDFB1E817D8F5244CDD3 /* TodayView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3BE4F882F2B672C4AC3FFF74 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0C0B1AF8C48571045F39061 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C88D24D883BBBBA241D72F94;
+			remoteInfo = ClarityPlanner;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		02A7BC7C9528CF17A0E87380 /* ToolbarSheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarSheets.swift; sourceTree = "<group>"; };
+		1737A9BC65D72A91E746DA66 /* Planner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planner.swift; sourceTree = "<group>"; };
+		2E186D36096E7D2DA40C1A7D /* ClarityPlannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClarityPlannerApp.swift; sourceTree = "<group>"; };
+		3BFFBBB98482AA9ACBE9A47B /* GoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsView.swift; sourceTree = "<group>"; };
+		5730F9DBDE4BCA81EADE89CE /* PlannerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerTests.swift; sourceTree = "<group>"; };
+		887343276553FB04BD5448BE /* WeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
+		8F8CD73A35E5E16145689849 /* PayoffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayoffView.swift; sourceTree = "<group>"; };
+		98DC8944DF998E019059912B /* TimerViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViews.swift; sourceTree = "<group>"; };
+		9E80685CD95B2DD4C83469C4 /* ThirtyDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirtyDaysView.swift; sourceTree = "<group>"; };
+		ACC499C4E88F305418D2C0CE /* ClarityPlannerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ClarityPlannerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD6D539047CB90D3E48685D4 /* ClarityPlanner.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ClarityPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCDBEDFB1E817D8F5244CDD3 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		76C8F94637F7C2C471B4FAB7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AD6D539047CB90D3E48685D4 /* ClarityPlanner.app */,
+				ACC499C4E88F305418D2C0CE /* ClarityPlannerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A3FA61CC56611ACA448D63FA = {
+			isa = PBXGroup;
+			children = (
+				DD2222D7A5F5B0192160AD0C /* ClarityPlanner */,
+				D4452BC2DD9A62EB279D7F33 /* ClarityPlannerTests */,
+				76C8F94637F7C2C471B4FAB7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D4452BC2DD9A62EB279D7F33 /* ClarityPlannerTests */ = {
+			isa = PBXGroup;
+			children = (
+				5730F9DBDE4BCA81EADE89CE /* PlannerTests.swift */,
+			);
+			path = ClarityPlannerTests;
+			sourceTree = "<group>";
+		};
+		DD2222D7A5F5B0192160AD0C /* ClarityPlanner */ = {
+			isa = PBXGroup;
+			children = (
+				2E186D36096E7D2DA40C1A7D /* ClarityPlannerApp.swift */,
+				3BFFBBB98482AA9ACBE9A47B /* GoalsView.swift */,
+				8F8CD73A35E5E16145689849 /* PayoffView.swift */,
+				1737A9BC65D72A91E746DA66 /* Planner.swift */,
+				9E80685CD95B2DD4C83469C4 /* ThirtyDaysView.swift */,
+				98DC8944DF998E019059912B /* TimerViews.swift */,
+				CCDBEDFB1E817D8F5244CDD3 /* TodayView.swift */,
+				02A7BC7C9528CF17A0E87380 /* ToolbarSheets.swift */,
+				887343276553FB04BD5448BE /* WeekView.swift */,
+			);
+			path = ClarityPlanner;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		53844BEE783EBA747AAA1D18 /* ClarityPlannerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B71DAE2F32E9014CCFAA185C /* Build configuration list for PBXNativeTarget "ClarityPlannerTests" */;
+			buildPhases = (
+				8DD0B5CA6CE4E2CA5D33B581 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F32F0214AEBF56FE159B0008 /* PBXTargetDependency */,
+			);
+			name = ClarityPlannerTests;
+			packageProductDependencies = (
+			);
+			productName = ClarityPlannerTests;
+			productReference = ACC499C4E88F305418D2C0CE /* ClarityPlannerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C88D24D883BBBBA241D72F94 /* ClarityPlanner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 81D9DF27C65495FC47C9C023 /* Build configuration list for PBXNativeTarget "ClarityPlanner" */;
+			buildPhases = (
+				DEE9D1FC1A2C4DAF3B520C85 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClarityPlanner;
+			packageProductDependencies = (
+			);
+			productName = ClarityPlanner;
+			productReference = AD6D539047CB90D3E48685D4 /* ClarityPlanner.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C0C0B1AF8C48571045F39061 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					53844BEE783EBA747AAA1D18 = {
+						DevelopmentTeam = 56Y5LC2387;
+						ProvisioningStyle = Automatic;
+					};
+					C88D24D883BBBBA241D72F94 = {
+						DevelopmentTeam = 56Y5LC2387;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 23EDCFA1F405744349C922AF /* Build configuration list for PBXProject "ClarityPlanner" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = A3FA61CC56611ACA448D63FA;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 76C8F94637F7C2C471B4FAB7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C88D24D883BBBBA241D72F94 /* ClarityPlanner */,
+				53844BEE783EBA747AAA1D18 /* ClarityPlannerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DD0B5CA6CE4E2CA5D33B581 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AEEF3DB57C518E8015FAC853 /* PlannerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEE9D1FC1A2C4DAF3B520C85 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7FE2F1334C7EEF88171C8BB7 /* ClarityPlannerApp.swift in Sources */,
+				F0D4DCCC4AAC26D06EA46EE1 /* GoalsView.swift in Sources */,
+				182996FA40F374D17A84BB93 /* PayoffView.swift in Sources */,
+				8A00887F69757FF969E6771B /* Planner.swift in Sources */,
+				D6A19F6E3AED82FE9F5B3F4C /* ThirtyDaysView.swift in Sources */,
+				7A7A4CC7693A08E2C133EC85 /* TimerViews.swift in Sources */,
+				F1A280D154BDA3FD89571160 /* TodayView.swift in Sources */,
+				39B919538736421180A708C3 /* ToolbarSheets.swift in Sources */,
+				6B9328000DA968F7EAE6DEC8 /* WeekView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F32F0214AEBF56FE159B0008 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C88D24D883BBBBA241D72F94 /* ClarityPlanner */;
+			targetProxy = 3BE4F882F2B672C4AC3FFF74 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		352B1F378E4E6CE74437EC70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 56Y5LC2387;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		3BCDA4EEF9D44F9F8C444830 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_KEY_CFBundleDisplayName = Clarity;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clarity.planner;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5A6A5E2A48936821A8E6C423 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_KEY_CFBundleDisplayName = Clarity;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clarity.planner;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		769C73AD27DCDD78A49E8C34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 56Y5LC2387;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		99D555154198E9D4900A80CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clarity.ClarityPlannerTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClarityPlanner.app/ClarityPlanner";
+			};
+			name = Release;
+		};
+		F3BDE410131FC5BB5A4714A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clarity.ClarityPlannerTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClarityPlanner.app/ClarityPlanner";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		23EDCFA1F405744349C922AF /* Build configuration list for PBXProject "ClarityPlanner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				352B1F378E4E6CE74437EC70 /* Debug */,
+				769C73AD27DCDD78A49E8C34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		81D9DF27C65495FC47C9C023 /* Build configuration list for PBXNativeTarget "ClarityPlanner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3BCDA4EEF9D44F9F8C444830 /* Debug */,
+				5A6A5E2A48936821A8E6C423 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B71DAE2F32E9014CCFAA185C /* Build configuration list for PBXNativeTarget "ClarityPlannerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3BDE410131FC5BB5A4714A7 /* Debug */,
+				99D555154198E9D4900A80CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C0C0B1AF8C48571045F39061 /* Project object */;
+}

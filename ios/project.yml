@@ -1,0 +1,30 @@
+name: ClarityPlanner
+options:
+  bundleIdPrefix: com.clarity
+  deploymentTarget:
+    iOS: "26.0"
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    GENERATE_INFOPLIST_FILE: YES
+    DEVELOPMENT_TEAM: 56Y5LC2387
+    CODE_SIGN_STYLE: Automatic
+targets:
+  ClarityPlanner:
+    type: application
+    platform: iOS
+    sources: [ClarityPlanner]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.clarity.planner
+        INFOPLIST_KEY_CFBundleDisplayName: Clarity
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+  ClarityPlannerTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [ClarityPlannerTests]
+    dependencies:
+      - target: ClarityPlanner

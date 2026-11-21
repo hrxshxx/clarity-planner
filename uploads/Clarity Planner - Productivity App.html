@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clarity Planner – Productivity App</title>
+<style>
+:root{--g:#1f6f4a;--g2:#e6f3ec;--ink:#1d2a24;--mut:#6b7a72;--bg:#f6f8f5;--card:#fff;--line:#dfe7e2;--gold:#c8962b;--red:#b5483a;--blue:#2f6f9f}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:84px}
+header{background:var(--g);color:#fff;padding:16px 16px 14px}
+header h1{margin:0;font-size:20px}
+header .sub{font-size:13px;opacity:.85;margin-top:2px}
+main{max-width:720px;margin:0 auto;padding:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
+.card h2{margin:0 0 4px;font-size:16px}
+.hint{color:var(--mut);font-size:13px;margin:0 0 10px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;z-index:5}
+nav button{flex:1;border:0;background:none;padding:8px 2px 10px;font-size:11px;color:var(--mut);cursor:pointer}
+nav button span{display:block;font-size:19px}
+nav button.on{color:var(--g);font-weight:700}
+input,textarea,select{width:100%;font:inherit;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;margin-bottom:8px}
+textarea{resize:vertical;min-height:54px}
+.btn{background:var(--g);color:#fff;border:0;border-radius:10px;padding:9px 14px;font:inherit;font-weight:600;cursor:pointer}
+.btn.alt{background:var(--g2);color:var(--g)}
+.btn.sm{padding:5px 10px;font-size:13px}
+.row{display:flex;gap:8px;align-items:center}
+.row>input{margin:0}
+.item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border:0}
+.item .t{flex:1}
+.item .ts{font-size:12px;color:var(--mut)}
+.x{border:0;background:none;color:var(--mut);cursor:pointer;font-size:18px}
+.chk{width:24px;height:24px;border-radius:7px;border:2px solid var(--g);background:#fff;cursor:pointer;flex:none;color:#fff;font-weight:700;line-height:20px;text-align:center;padding:0}
+.chk.on{background:var(--g)}
+.bar{height:10px;background:var(--g2);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--g)}
+.big{font-size:30px;font-weight:700;color:var(--g)}
+.grid30{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.day{aspect-ratio:1;border-radius:10px;border:1px solid var(--line);background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:13px;cursor:pointer;color:var(--ink)}
+.day small{font-size:10px;color:var(--mut)}
+.day.done{background:var(--g);color:#fff;border-color:var(--g)}
+.day.done small{color:#cfe8da}
+.day.today{outline:2px solid var(--gold)}
+.day.future{opacity:.4;cursor:default}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){.cols{grid-template-columns:1fr}}
+.hi{border-top:4px solid var(--g)}.lo{border-top:4px solid var(--red)}
+.chart{display:flex;align-items:flex-end;gap:8px;height:150px;margin:10px 0 4px}
+.col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.col .b{width:100%;background:var(--g);border-radius:6px 6px 0 0;min-height:3px}
+.col .b.today{background:var(--gold)}
+.col small{font-size:11px;color:var(--mut);margin-top:4px}
+.col .v{font-size:11px;margin-bottom:2px}
+.reward{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px dashed var(--line);margin-bottom:8px}
+.reward.earned{background:#fff8e6;border:1px solid var(--gold)}
+.reward input{margin:0;flex:1}
+.pill{font-size:12px;background:var(--g2);color:var(--g);padding:2px 8px;border-radius:99px;font-weight:600}
+.wk{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.empty{color:var(--mut);font-size:14px;padding:6px 0}
+</style>
+</head>
+<body>
+<header><h1>🍀 Clarity Planner</h1><div class="sub" id="sub"></div></header>
+<main id="app"></main>
+<nav id="nav"></nav>
+<script>
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Math.random().toString(36).slice(2,9);
+const pad=n=>String(n).padStart(2,'0');
+const dk=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const parse=k=>{const[a,b,c]=k.split('-').map(Number);return new Date(a,b-1,c)};
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const mondayOf=d=>{const x=new Date(d);const w=(x.getDay()+6)%7;x.setDate(x.getDate()-w);x.setHours(0,0,0,0);return x};
+const timeStr=ts=>new Date(ts).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+const dateStr=d=>d.toLocaleDateString([], {day:'numeric',month:'short'});
+const todayKey=()=>dk(new Date());
+
+/* ---------- state ---------- */
+const DEFAULT=()=>({
+  v:1,updated:0,
+  goals:[],
+  achievements:{},
+  tracker:{name:'My 30-day habit',start:todayKey(),done:{}},
+  activities:[
+    {id:uid(),type:'high',text:'Reach out to 3 potential clients'},
+    {id:uid(),type:'high',text:'Prepare / deliver a session'},
+    {id:uid(),type:'low',text:'Scrolling social media'},
+    {id:uid(),type:'low',text:'Re-checking email every few minutes'}],
+  checklist:[
+    {id:uid(),text:'Morning planning (10 min)'},
+    {id:uid(),text:'Set top 3 priorities'},
+    {id:uid(),text:'Finish one high payoff activity'},
+    {id:uid(),text:'Move / walk for 20 min'},
+    {id:uid(),text:'Evening review'}],
+  days:{},          // dateKey -> {checks:{id:ts}, logs:[{id,ts,text}]}
+  rewards:[{min:40,text:'Favourite filter coffee'},{min:70,text:'Self-care evening'},{min:90,text:'Treat day out'}],
+  claimed:{}
+});
+let S=DEFAULT(), tab='today', weekOffset=0;
+const day=k=>(S.days[k]=S.days[k]||{checks:{},logs:[]});
+
+/* ---------- persistence: localStorage + private db (when available) ---------- */
+const KEY='clarity-planner-v1';
+let dbRef=null,saveTimer=null;
+try{const raw=localStorage.getItem(KEY);if(raw)S=Object.assign(DEFAULT(),JSON.parse(raw))}catch(e){}
+function save(){
+  S.updated=Date.now();
+  try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(async()=>{if(!dbRef)return;try{await dbRef.set({json:JSON.stringify(S),updated:S.updated})}catch(e){}},800);
+}
+(async()=>{
+  try{
+    if(!window.claude)return;
+    const db=await claude.use('db'),user=await claude.use('user');
+    if(!db||!user)return;
+    const id=await user.id();
+    dbRef=db.collection('data/users/'+id).doc('planner');
+    const snap=await dbRef.get();
+    const d=snap&&(typeof snap.data==='function'?snap.data():snap);
+    if(d&&d.json&&(d.updated||0)>S.updated){S=Object.assign(DEFAULT(),JSON.parse(d.json));try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}render()}
+    else if(S.updated)save();
+  }catch(e){}
+})();
+
+/* ---------- actions ---------- */
+const checkedPct=k=>{
+  if(!S.checklist.length)return 0;
+  const c=day(k).checks;
+  return Math.round(S.checklist.filter(i=>c[i.id]).length/S.checklist.length*100);
+};
+const A={
+  tab:v=>{tab=v;render();window.scrollTo(0,0)},
+  toggleCheck:id=>{const d=day(todayKey());if(d.checks[id])delete d.checks[id];else d.checks[id]=Date.now();save();render()},
+  addCheck:()=>{const v=$('#nc').value.trim();if(!v)return;S.checklist.push({id:uid(),text:v});save();render()},
+  delCheck:id=>{S.checklist=S.checklist.filter(i=>i.id!==id);save();render()},
+  stamp:label=>{day(todayKey()).logs.push({id:uid(),ts:Date.now(),text:label});save();render()},
+  addLog:()=>{const v=$('#lg').value.trim();if(!v)return;A.stamp(v)},
+  delLog:id=>{const d=day(todayKey());d.logs=d.logs.filter(l=>l.id!==id);save();render()},
+  addGoal:()=>{
+    const t=$('#gt').value.trim();if(!t)return;
+    const s=new Date();const e=new Date(s);e.setMonth(e.getMonth()+6);
+    S.goals.push({id:uid(),title:t,me:$('#gm').value.trim(),others:$('#go').value.trim(),start:dk(s),end:dk(e),progress:0});
+    save();render()},
+  delGoal:id=>{S.goals=S.goals.filter(g=>g.id!==id);save();render()},
+  goalProg:(id,v)=>{const g=S.goals.find(g=>g.id===id);g.progress=+v;save();$('#gp'+id).textContent=v+'%';$('#gb'+id).style.width=v+'%'},
+  addAch:wk=>{const v=$('#ac').value.trim();if(!v)return;(S.achievements[wk]=S.achievements[wk]||[]).push({id:uid(),ts:Date.now(),text:v});save();render()},
+  delAch:(wk,id)=>{S.achievements[wk]=S.achievements[wk].filter(a=>a.id!==id);save();render()},
+  week:n=>{weekOffset=n===0?0:weekOffset+n;render()},
+  trackDay:k=>{const t=S.tracker.done;if(t[k])delete t[k];else t[k]=Date.now();save();render()},
+  trackSet:()=>{S.tracker.name=$('#tn').value.trim()||S.tracker.name;S.tracker.start=$('#ts').value||S.tracker.start;save();render()},
+  trackReset:()=>{S.tracker={name:S.tracker.name,start:todayKey(),done:{}};save();render()},
+  addAct:type=>{const el=$('#act-'+type);const v=el.value.trim();if(!v)return;S.activities.push({id:uid(),type,text:v});save();render()},
+  delAct:id=>{S.activities=S.activities.filter(a=>a.id!==id);save();render()},
+  flipAct:id=>{const a=S.activities.find(a=>a.id===id);a.type=a.type==='high'?'low':'high';save();render()},
+  logAct:id=>{const a=S.activities.find(a=>a.id===id);A.stamp((a.type==='high'?'⭐ ':'▫️ ')+a.text)},
+  rewardText:(i,v)=>{S.rewards[i].text=v;save()},
+  rewardMin:(i,v)=>{S.rewards[i].min=Math.max(1,Math.min(100,+v||1));save();render()},
+  claim:(wk,i)=>{const k=wk+'#'+i;if(S.claimed[k])delete S.claimed[k];else S.claimed[k]=Date.now();save();render()}
+};
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-a]');if(!el)return;
+  const args=(el.dataset.args||'').split('|').filter(x=>x!=='');
+  A[el.dataset.a](...args);
+});
+document.addEventListener('input',e=>{
+  const el=e.target;
+  if(el.dataset.in==='goalProg')A.goalProg(el.dataset.id,el.value);
+  if(el.dataset.in==='rewardText')A.rewardText(+el.dataset.i,el.value);
+});
+document.addEventListener('change',e=>{if(e.target.dataset.in==='rewardMin')A.rewardMin(+e.target.dataset.i,e.target.value)});
+
+/* ---------- views ---------- */
+const bt=(a,args,label,cls='btn')=>`<button class="${cls}" data-a="${a}" data-args="${args}">${label}</button>`;
+
+function vToday(){
+  const k=todayKey(),d=day(k),pct=checkedPct(k);
+  const logs=[...d.logs].sort((a,b)=>a.ts-b.ts);
+  return `
+  <div class="card"><h2>Today's progress</h2>
+    <div class="big">${pct}%</div><div class="bar"><i style="width:${pct}%"></i></div></div>
+  <div class="card"><h2>✅ Daily checklist</h2><p class="hint">Each tick is time-stamped automatically.</p>
+    ${S.checklist.map(i=>`<div class="item">
+      <button class="chk ${d.checks[i.id]?'on':''}" data-a="toggleCheck" data-args="${i.id}">${d.checks[i.id]?'✓':''}</button>
+      <div class="t">${esc(i.text)}${d.checks[i.id]?`<div class="ts">done at ${timeStr(d.checks[i.id])}</div>`:''}</div>
+      <button class="x" data-a="delCheck" data-args="${i.id}" title="Remove">×</button></div>`).join('')||'<div class="empty">No items yet.</div>'}
+    <div class="row" style="margin-top:10px"><input id="nc" placeholder="Add checklist item"><button class="btn" data-a="addCheck">Add</button></div></div>
+  <div class="card"><h2>⏱️ Time stamps – ${dateStr(new Date())}</h2><p class="hint">Mark your day as it happens.</p>
+    <div class="row" style="flex-wrap:wrap;margin-bottom:10px">
+      ${bt('stamp','Day started','🌅 Start day','btn alt sm')}${bt('stamp','Deep work started','🎯 Focus start','btn alt sm')}
+      ${bt('stamp','Deep work ended','🏁 Focus end','btn alt sm')}${bt('stamp','Day ended','🌙 End day','btn alt sm')}</div>
+    <div class="row"><input id="lg" placeholder="What are you doing now?"><button class="btn" data-a="addLog">Stamp</button></div>
+    ${logs.map(l=>`<div class="item"><span class="pill">${timeStr(l.ts)}</span><div class="t">${esc(l.text)}</div><button class="x" data-a="delLog" data-args="${l.id}">×</button></div>`).join('')||'<div class="empty" style="margin-top:8px">Nothing stamped yet today.</div>'}
+  </div>`;
+}
+
+function vGoals(){
+  const now=new Date();
+  return `<div class="card"><h2>🎯 Win-Win goals – 6 months</h2><p class="hint">A win-win goal benefits you <b>and</b> the people you serve.</p>
+    <input id="gt" placeholder="Goal (e.g. Launch my signature program)">
+    <textarea id="gm" placeholder="My win (what I gain)"></textarea>
+    <textarea id="go" placeholder="Their win (who else benefits, and how)"></textarea>
+    <button class="btn" data-a="addGoal">Add 6-month goal</button></div>
+  ${S.goals.map(g=>{
+    const s=parse(g.start),e=parse(g.end),tot=e-s,el=Math.min(Math.max(now-s,0),tot);
+    const timePct=Math.round(el/tot*100),left=Math.max(0,Math.ceil((e-now)/864e5));
+    return `<div class="card"><div class="row"><h2 style="flex:1">${esc(g.title)}</h2><button class="x" data-a="delGoal" data-args="${g.id}">×</button></div>
+      <p class="hint">${dateStr(s)} → ${dateStr(e)} · ${left} days left (${timePct}% of time used)</p>
+      ${g.me?`<div><b>🙋 My win:</b> ${esc(g.me)}</div>`:''}${g.others?`<div style="margin-top:4px"><b>🤝 Their win:</b> ${esc(g.others)}</div>`:''}
+      <div class="row" style="margin-top:12px"><b style="font-size:13px">Progress</b><b id="gp${g.id}" style="margin-left:auto">${g.progress}%</b></div>
+      <div class="bar" style="margin:4px 0 8px"><i id="gb${g.id}" style="width:${g.progress}%"></i></div>
+      <input type="range" min="0" max="100" value="${g.progress}" data-in="goalProg" data-id="${g.id}" style="padding:0"></div>`}).join('')||'<div class="empty">Add your first goal above.</div>'}`;
+}
+
+function vWeek(){
+  const mon=addDays(mondayOf(new Date()),weekOffset*7),wk=dk(mon),tk=todayKey();
+  const days=[...Array(7)].map((_,i)=>addDays(mon,i));
+  const pcts=days.map(d=>dk(d)>tk?0:checkedPct(dk(d)));
+  const elapsed=days.filter(d=>dk(d)<=tk).length||1;
+  const score=Math.round(pcts.reduce((a,b)=>a+b,0)/(weekOffset<0?7:elapsed));
+  const ach=S.achievements[wk]||[];
+  const lbl=['M','T','W','T','F','S','S'];
+  return `
+  <div class="wk">${bt('week','-1','‹ Prev','btn alt sm')}<b>${dateStr(mon)} – ${dateStr(addDays(mon,6))}</b>${weekOffset?bt('week','0','This week','btn alt sm'):'<span class="pill">This week</span>'}${bt('week','1','Next ›','btn alt sm')}</div>
+  <div class="card"><h2>📊 Weekly success chart</h2><p class="hint">Daily checklist completion</p>
+    <div class="chart">${pcts.map((p,i)=>`<div class="col"><div class="v">${dk(days[i])>tk?'':p+'%'}</div><div class="b ${dk(days[i])===tk?'today':''}" style="height:${p*0.95}%"></div><small>${lbl[i]}</small></div>`).join('')}</div>
+    <div class="row"><span>Weekly score</span><span class="big" style="margin-left:auto">${score}%</span></div></div>
+  <div class="card"><h2>🎁 Weekly rewards</h2><p class="hint">Reach a score to unlock the reward. Edit them to what motivates you.</p>
+    ${S.rewards.map((r,i)=>{const ok=score>=r.min,cl=S.claimed[wk+'#'+i];
+      return `<div class="reward ${ok?'earned':''}"><span style="font-size:20px">${ok?'🏆':'🔒'}</span>
+      <input type="number" value="${r.min}" min="1" max="100" style="width:64px;flex:none" data-in="rewardMin" data-i="${i}">%
+      <input value="${esc(r.text)}" data-in="rewardText" data-i="${i}">
+      ${ok?bt('claim',wk+'|'+i,cl?'Claimed ✓':'Claim','btn sm'+(cl?' alt':'')):''}</div>`}).join('')}</div>
+  <div class="card"><h2>🏅 Weekly achievements</h2><p class="hint">Wins from this week, big or small.</p>
+    ${ach.map(a=>`<div class="item"><span class="pill">${new Date(a.ts).toLocaleDateString([], {weekday:'short'})} ${timeStr(a.ts)}</span><div class="t">${esc(a.text)}</div><button class="x" data-a="delAch" data-args="${wk}|${a.id}">×</button></div>`).join('')||'<div class="empty">No achievements logged yet.</div>'}
+    ${weekOffset===0?`<div class="row" style="margin-top:10px"><input id="ac" placeholder="I achieved…"><button class="btn" data-a="addAch" data-args="${wk}">Add</button></div>`:''}</div>`;
+}
+
+function vTracker(){
+  const t=S.tracker,s=parse(t.start),tk=todayKey();
+  const cells=[...Array(30)].map((_,i)=>{const d=addDays(s,i),k=dk(d);return{i:i+1,k,d,done:!!t.done[k],future:k>tk,today:k===tk}});
+  const done=cells.filter(c=>c.done).length;
+  let streak=0;for(let i=cells.length-1;i>=0;i--){if(cells[i].future)continue;if(cells[i].done)streak++;else if(!cells[i].today)break}
+  return `<div class="card"><h2>📅 30-day tracker</h2><p class="hint">Tap a day to mark it done.</p>
+    <input id="tn" value="${esc(t.name)}" placeholder="Habit / challenge name">
+    <div class="row"><input id="ts" type="date" value="${t.start}"><button class="btn alt" data-a="trackSet">Save</button></div></div>
+  <div class="card"><div class="row"><div><div class="big">${done}/30</div><div class="hint" style="margin:0">days done</div></div>
+    <div style="margin-left:auto;text-align:right"><div class="big">🔥${streak}</div><div class="hint" style="margin:0">day streak</div></div></div>
+    <div class="bar" style="margin:10px 0 14px"><i style="width:${done/30*100}%"></i></div>
+    <div class="grid30">${cells.map(c=>`<button class="day ${c.done?'done':''} ${c.today?'today':''} ${c.future?'future':''}" ${c.future?'disabled':`data-a="trackDay" data-args="${c.k}"`}>${c.i}<small>${c.d.getDate()}/${c.d.getMonth()+1}</small></button>`).join('')}</div>
+    <div style="margin-top:14px">${bt('trackReset','','Restart 30 days','btn alt sm')}</div></div>`;
+}
+
+function vActs(){
+  const col=(type,title,tip)=>`<div class="card ${type==='high'?'hi':'lo'}"><h2>${title}</h2><p class="hint">${tip}</p>
+    ${S.activities.filter(a=>a.type===type).map(a=>`<div class="item"><div class="t">${esc(a.text)}</div>
+      ${bt('logAct',a.id,'Log','btn alt sm')}<button class="x" data-a="flipAct" data-args="${a.id}" title="Move to ${type==='high'?'low':'high'}">⇄</button><button class="x" data-a="delAct" data-args="${a.id}">×</button></div>`).join('')||'<div class="empty">None yet.</div>'}
+    <div class="row" style="margin-top:10px"><input id="act-${type}" placeholder="Add activity"><button class="btn" data-a="addAct" data-args="${type}">+</button></div></div>`;
+  return `<div class="card"><h2>⚖️ Payoff activities</h2><p class="hint">Do high payoff first. Reduce, delegate or drop low payoff. “Log” adds it to today’s time stamps; ⇄ moves it to the other list.</p></div>
+  <div class="cols">${col('high','⭐ High payoff','Protect time for these.')}${col('low','▫️ Low payoff','Minimise, delegate or stop.')}</div>`;
+}
+
+const TABS=[['today','☀️','Today'],['goals','🎯','Goals'],['week','📊','Week'],['tracker','📅','30 Days'],['acts','⚖️','Payoff']];
+function render(){
+  $('#sub').textContent=new Date().toLocaleDateString([], {weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  $('#nav').innerHTML=TABS.map(([k,i,l])=>`<button class="${tab===k?'on':''}" data-a="tab" data-args="${k}"><span>${i}</span>${l}</button>`).join('');
+  const v={today:vToday,goals:vGoals,week:vWeek,tracker:vTracker,acts:vActs}[tab];
+  const f=document.activeElement&&document.activeElement.id;
+  $('#app').innerHTML=v();
+}
+render();
+</script>
+</body>
+</html>
